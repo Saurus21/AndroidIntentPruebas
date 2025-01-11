@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     //
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
             toggleScanner(btnActivateScanner);
         });
 
+        // Mostrar los datos guardados en la base de datos
+        displayStoredData();
     }
 
     @Override
@@ -127,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         String decodedSource = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_source));
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
+        //String decodedData = initiatingIntent.getStringExtra("com.symbol.datawedge.decode_data");
         String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
 
         Log.d(LOG_TAG, "displayScanResult: Decoded Source: " + decodedSource);
@@ -140,6 +145,31 @@ public class MainActivity extends AppCompatActivity {
         lblScanSource.setText(decodedSource != null ? decodedSource + " " + howDataReceived : "No source");
         lblScanData.setText(decodedData != null ? decodedData : "No data");
         lblScanLabelType.setText(decodedLabelType != null ? decodedLabelType : "No label type");
+
+        // Guardar los datos en la base de datos
+        new Thread(() -> {
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+            ScannedData scannedData = new ScannedData();
+
+            scannedData.setSource(decodedSource);
+            scannedData.setData(decodedData);
+            scannedData.setLabelType(decodedLabelType);
+
+            db.scannedDataDao().insert(scannedData);
+            Log.d("Database", "Data inserted: " + scannedData.getData());
+        }).start();
+    }
+
+    private void displayStoredData() {
+        new Thread(() -> {
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+            List<ScannedData> dataList = db.scannedDataDao().getAllScannedData();
+
+            for (ScannedData data : dataList) {
+                Log.d("Database", "ID: " + data.getId() + ", Source: " + data.getSource() +
+                        ", Data: " + data.getData() + ", Label Type: " + data.getLabelType());
+            }
+        }).start();
     }
 }
 
