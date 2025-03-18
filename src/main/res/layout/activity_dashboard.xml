@@ -1,0 +1,98 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center" >
+<!--    android:background="@drawable/button_background">-->
+<!--
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dashboard"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="16dp"
+        android:gravity="center" />
+-->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:alignmentMode="alignMargins"
+        android:padding="8dp">
+
+        <!-- reemplazar con botones mas adelante -->
+        <include
+            layout="@layout/dashboard_button"
+            android:id="@+id/btnScannerActivity"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"/>
+
+        <include
+            layout="@layout/dashboard_button"
+            android:id="@+id/btnDatabaseActivity"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"/>
+
+        <include
+            layout="@layout/dashboard_button"
+            android:id="@+id/btnCargarDatos"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"/>
+
+        <include
+            layout="@layout/dashboard_button"
+            android:id="@+id/btnTransferirDatos"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"/>
+
+        <include
+            layout="@layout/dashboard_button"
+            android:id="@+id/btnLogout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"/>
+
+        <include
+            layout="@layout/dashboard_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"/>
+
+        <include
+            layout="@layout/dashboard_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"/>
+
+        <include
+            layout="@layout/dashboard_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"/>
+
+    </GridLayout>
+</LinearLayout>

@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <!-- scan source -->
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Scan Source:"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/lblScanSource"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textSize="18sp"
-        android:text="Waiting for scan..."
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- scan data -->
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textSize="18sp"
-        android:text="Scan Data:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/lblScanData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textSize="18sp"
-        android:text="Waiting for scan..."
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/lblScanSource" />
-
-    <!-- scan label type -->
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textSize="18sp"
-        android:text="Decoder:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/lblScanDecoder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textSize="18sp"
-        android:text="Waiting for scan..."
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/lblScanData" />
-
-    <!-- activar desactivar scanner -->
-    <Button
-        android:id="@+id/btnActivateScanner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Activate Scanner"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Scan Source -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan Source:"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/lblScanSource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Esperando Escaneo..."
+            android:textSize="18sp"
+            android:paddingStart="8dp" />
+
+        <!-- Scan Data -->
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan Data:"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/lblScanData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Esperando Escaneo..."
+            android:textSize="18sp"
+            android:paddingStart="8dp" />
+
+        <!-- Decoder -->
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Decoder:"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/lblScanDecoder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Esperando Escaneo..."
+            android:textSize="18sp"
+            android:paddingStart="8dp" />
+
+        <!-- Activate/Deactivate Scanner Button -->
+        <Button
+            android:id="@+id/btnActivateScanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Activar Scanner"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:elevation="4dp"
+            android:radius="8dp" />
+
+        <!-- View Database Button -->
+        <Button
+            android:id="@+id/btnViewDatabase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver Lecturas Realizadas"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
+            android:elevation="4dp"
+            android:radius="8dp" />
+    </LinearLayout>
+</ScrollView>

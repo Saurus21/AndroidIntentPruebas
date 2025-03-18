@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Tema principal de la app -->
+    <style name="Theme.AddaxInventario" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Color primario y secundario -->
+        <item name="colorPrimary">#1E88E5</item> <!-- Azul brillante -->
+        <item name="colorPrimaryVariant">#1565C0</item> <!-- Azul más oscuro -->
+        <item name="colorOnPrimary">#FFFFFF</item> <!-- Texto sobre el azul -->
+
+        <item name="colorSecondary">#29B6F6</item> <!-- Azul claro -->
+        <item name="colorSecondaryVariant">#039BE5</item> <!-- Azul medio -->
+        <item name="colorOnSecondary">#FFFFFF</item> <!-- Texto sobre el secundario -->
+
+        <!-- Fondo -->
+<!--        <item name="android:windowBackground">#121212</item> &lt;!&ndash; Fondo oscuro &ndash;&gt;-->
+<!--        <item name="android:background">#121212</item> &lt;!&ndash; Fondo más oscuro &ndash;&gt;-->
+<!--        <item name="colorOnBackground">#000000</item> &lt;!&ndash; Texto en el fondo &ndash;&gt;-->
+    </style>
+</resources>
