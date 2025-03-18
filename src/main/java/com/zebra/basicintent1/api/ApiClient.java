@@ -12,8 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static final String BASE_URL = "http://192.168.1.16:8081/";
-    // private static final String BASE_URL = "http://201.217.242.171:51860/";
+    private static final String BASE_URL = "http://1.1.1.1:1000/"; // ip y puerto a conectar
     private static String username = "ADMIN"; // credenciales por defecto
     private static String password = "ADMIN10";
     private static Retrofit retrofit = null;
