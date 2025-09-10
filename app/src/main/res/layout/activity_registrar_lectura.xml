@@ -7,36 +7,31 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/tvResumenEscaneo"
+        android:id="@+id/tvIdMedidor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Productos escaneados: 0"
+        android:text="Medidor ID: 12345-ABC"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp"/>
 
-    <Button
-        android:id="@+id/btnActivateScanner"
+    <EditText
+        android:id="@+id/etValorLectura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Activar Escáner"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@android:color/white"/>
+        android:hint="Ingrese valor de la lectura (ej: 123.45)"
+        android:inputType="numberDecimal"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewProductosEscaneados"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"/>
-
-    <Button
-        android:id="@+id/btnFinalizar"
+    <EditText
+        android:id="@+id/etObservacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Finalizar Escaneo"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:textColor="@android:color/white"/>
+        android:hint="Observaciones (opcional)" />
+
+    <Button
+        android:id="@+id/btnGuardarLectura"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Lectura" />
+
 </LinearLayout>

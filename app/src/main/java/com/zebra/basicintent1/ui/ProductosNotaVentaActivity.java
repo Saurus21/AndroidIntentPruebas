@@ -22,13 +22,7 @@ import com.zebra.basicintent1.R;
 import com.zebra.basicintent1.api.ApiClient;
 import com.zebra.basicintent1.api.InventarioApi;
 import com.zebra.basicintent1.database.AppDatabase;
-import com.zebra.basicintent1.notaVenta.StockProducto;
-import com.zebra.basicintent1.notaVenta.NotaVenta;
-import com.zebra.basicintent1.notaVenta.ProductoAdapter;
-import com.zebra.basicintent1.notaVenta.ProductoEscaneado;
 import com.zebra.basicintent1.database.ProductoEscaneadoPendiente;
-import com.zebra.basicintent1.notaVenta.ProductosEscaneadosAdapter;
-import com.zebra.basicintent1.notaVenta.ProductosPendientesAdapter;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -130,7 +124,7 @@ public class ProductosNotaVentaActivity extends AppCompatActivity {
         FloatingActionButton fabEscanear = findViewById(R.id.fabEscanear);
         fabEscanear.setOnClickListener(v -> {
             // Iniciar actividad de escaneo
-            Intent intent = new Intent(ProductosNotaVentaActivity.this, EscanearProductosActivity.class);
+            Intent intent = new Intent(ProductosNotaVentaActivity.this, RegistrarLecturaActivity.class);
             intent.putExtra("numero_nota", numeroNotaVenta);
             startActivityForResult(intent, 1);
         });

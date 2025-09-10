@@ -60,7 +60,7 @@ public class DashboardActivity extends AppCompatActivity {
         ((ImageView) transferirDatosButton.findViewById(R.id.dashboardButtonIcon)).setImageResource(R.drawable.up_arrow);
 
         transferirDatosButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, TransferirDatosActivity.class);
+            Intent intent = new Intent(this, SincronizarActivity.class);
             startActivity(intent);
         });
 
@@ -86,7 +86,7 @@ public class DashboardActivity extends AppCompatActivity {
         ((ImageView) pickingListButton.findViewById(R.id.dashboardButtonIcon)).setImageResource(R.drawable.ic_picking_list);
 
         pickingListButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, NotasVentaActivity.class);
+            Intent intent = new Intent(this, RutasActivity.class);
             startActivity(intent);
         });
     }

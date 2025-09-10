@@ -1,10 +1,5 @@
 package com.zebra.basicintent1.api;
 
-import com.zebra.basicintent1.notaVenta.StockProducto;
-import com.zebra.basicintent1.notaVenta.NotaVenta;
-import com.zebra.basicintent1.notaVenta.PickingListRequest;
-import com.zebra.basicintent1.notaVenta.PickingListResponse;
-
 import java.math.BigInteger;
 import java.util.List;
 

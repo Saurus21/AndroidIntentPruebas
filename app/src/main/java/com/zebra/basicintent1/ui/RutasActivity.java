@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zebra.basicintent1.R;
 import com.zebra.basicintent1.api.ApiClient;
 import com.zebra.basicintent1.api.InventarioApi;
-import com.zebra.basicintent1.notaVenta.NotaVenta;
-import com.zebra.basicintent1.notaVenta.NotaVentaAdapter;
+import com.zebra.basicintent1.modelosDatos.Ruta;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,11 +24,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NotasVentaActivity extends AppCompatActivity implements NotaVentaAdapter.OnNotaVentaClickListener {
+public class RutasActivity extends AppCompatActivity implements RutaAdapter.OnRutaClickListener {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private NotaVentaAdapter adapter;
-    private List<NotaVenta> notasVenta = new ArrayList<>();
+    private RutaAdapter adapter;
+    private List<Ruta> listaRutas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +39,11 @@ public class NotasVentaActivity extends AppCompatActivity implements NotaVentaAd
         progressBar = findViewById(R.id.progressBar);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new NotaVentaAdapter(notasVenta, this);
+        adapter = new RutaAdapter(listaRutas, this);
         recyclerView.setAdapter(adapter);
 
-        if (notasVenta.isEmpty()) {
-            cargarNotasVenta();
+        if (listaRutas.isEmpty()) {
+            cargarRutasAsignadas();
         }
     }
 
@@ -63,39 +60,31 @@ public class NotasVentaActivity extends AppCompatActivity implements NotaVentaAd
         String fechaDesde = "2025-08-01";
         String fechaHasta = "2025-08-31";
 
-        InventarioApi apiService = ApiClient.getRetrofitInstance(this).create(InventarioApi.class);
-        Call<List<NotaVenta>> call = apiService.getNotasVentaPendiente(estado, fechaDesde, fechaHasta);
+        AguaRuralApi apiService = ApiClient.getRetrofitInstance(this).create(AguaRuralApi.class);
+        Call<List<Ruta>> call = apiService.getRutasAsignadas("pensar que puede ir aqui");
 
-        call.enqueue(new Callback<List<NotaVenta>>() {
+        call.enqueue(new Callback<List<Ruta>>() {
             @Override
-            public void onResponse(Call<List<NotaVenta>> call, Response<List<NotaVenta>> response) {
+            public void onResponse(Call<List<Ruta>> call, Response<List<Ruta>> response) {
                 progressBar.setVisibility(View.GONE);
 
                 if (response.isSuccessful() && response.body() != null) {
-                    notasVenta.clear();
-                    notasVenta.addAll(response.body());
-
-                    Collections.sort(notasVenta, (n1, n2) -> n2.getFecha().compareTo(n1.getFecha()));
+                    listaRutas.clear();
+                    listaRutas.addAll(response.body());
 
                     adapter.notifyDataSetChanged();
 
-                    // Log para verificar datos
-                    for (NotaVenta nota : notasVenta) {
-                        Log.d("NOTA_VENTA", "Nota #" + nota.getNumero() +
-                                " - Cliente: " + nota.getUsuarioNombre() +
-                                " - Detalles: " + nota.getDetalles().size());
-                    }
                 } else {
-                    Toast.makeText(NotasVentaActivity.this,
+                    Toast.makeText(RutasActivity.this,
                             "No se encontraron notas de venta",
                             Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<NotaVenta>> call, Throwable t) {
+            public void onFailure(Call<List<Ruta>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(NotasVentaActivity.this,
+                Toast.makeText(RutasActivity.this,
                         "Error al cargar notas: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("NotasVentaActivity", "Error al cargar notas: " + t.getMessage(), t);
             }
@@ -103,19 +92,12 @@ public class NotasVentaActivity extends AppCompatActivity implements NotaVentaAd
     }
 
     @Override
-    public void onNotaVentaClick(NotaVenta notaVenta) {
-        if (notaVenta.getDetalles() != null && !notaVenta.getDetalles().isEmpty()) {
-            Intent intent = new Intent(this, ProductosNotaVentaActivity.class);
-            intent.putExtra("notaVenta", notaVenta);
+    public void onRutaClick(Ruta ruta) {
 
-            if (notaVenta.getRutEmpresa() != null) {
-                intent.putExtra("rutEmpresa", notaVenta.getRutEmpresa());
-            }
+        Intent intent = new Intent(this, DetalleRutaActivity.class);
+        intent.putExtra("rutaSeleccionada", ruta);
+        startActivity(intent);
 
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "No se encontraron productos para esta nota", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
