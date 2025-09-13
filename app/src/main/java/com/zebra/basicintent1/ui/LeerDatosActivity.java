@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zebra.basicintent1.R;
 import com.zebra.basicintent1.api.ApiClient;
 import com.zebra.basicintent1.api.Inventario;
-import com.zebra.basicintent1.api.InventarioApi;
+import com.zebra.basicintent1.api.AguaRuralApi;
 import com.zebra.basicintent1.database_oracle.InventarioRemotoAdapter;
 
 import retrofit2.Call;
@@ -55,26 +55,26 @@ public class LeerDatosActivity extends AppCompatActivity {
     }
 
     private void obtenerDatosDeInventario() {
-        InventarioApi apiService = ApiClient.getRetrofitInstance(this).create(InventarioApi.class);
-
-        Call<List<Inventario>> call = apiService.getInventario();
-
-        call.enqueue(new Callback<>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Inventario>> call, @NonNull Response<List<Inventario>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Inventario> inventarioList = response.body();
-                    adapter = new InventarioRemotoAdapter(inventarioList);
-                    recyclerView.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<List<Inventario>> call, @NonNull Throwable t) {
-                // manejar error
-                t.printStackTrace();
-            }
-        });
+//        AguaRuralApi apiService = ApiClient.getRetrofitInstance(this).create(AguaRuralApi.class);
+//
+//        Call<List<Inventario>> call = apiService.getInventario();
+//
+//        call.enqueue(new Callback<>() {
+//            @Override
+//            public void onResponse(@NonNull Call<List<Inventario>> call, @NonNull Response<List<Inventario>> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    List<Inventario> inventarioList = response.body();
+//                    adapter = new InventarioRemotoAdapter(inventarioList);
+//                    recyclerView.setAdapter(adapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<List<Inventario>> call, @NonNull Throwable t) {
+//                // manejar error
+//                t.printStackTrace();
+//            }
+//        });
     }
 
     private void mostrarDialogoAgregarInventario() {
@@ -132,37 +132,37 @@ public class LeerDatosActivity extends AppCompatActivity {
     }
 
     private void agregarNuevoRegistro(Inventario inventario) {
-        InventarioApi apiService = ApiClient.getRetrofitInstance(this).create(InventarioApi.class);
-        Call<Inventario> call = apiService.addInventario(inventario);
-
-        call.enqueue(new Callback<Inventario>() {
-            @Override
-            public void onResponse(@NonNull Call<Inventario> call, @NonNull Response<Inventario> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(LeerDatosActivity.this, "Registro agregado", Toast.LENGTH_SHORT).show();
-                    obtenerDatosDeInventario();
-                } else {
-                    // Log del error del servidor
-                    Log.e("API_ERROR", "Código de error: " + response.code());
-                    Log.e("API_ERROR", "Mensaje: " + response.message());
-
-                    // intentar leer el cuerpo del error
-                    try {
-                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "Cuerpo del error no disponible";
-                        Log.e("API_ERROR", "Cuerpo de la respuesta: " + errorBody);
-                    } catch (IOException e) {
-                        Log.e("API_ERROR", "Error al leer el cuerpo del error: " + e.getMessage());
-                    }
-
-                    Toast.makeText(LeerDatosActivity.this, "Error en el servidor: " + response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Inventario> call, @NonNull Throwable t) {
-                Toast.makeText(LeerDatosActivity.this, "Error en la conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
+//        AguaRuralApi apiService = ApiClient.getRetrofitInstance(this).create(AguaRuralApi.class);
+//        Call<Inventario> call = apiService.addInventario(inventario);
+//
+//        call.enqueue(new Callback<Inventario>() {
+//            @Override
+//            public void onResponse(@NonNull Call<Inventario> call, @NonNull Response<Inventario> response) {
+//                if (response.isSuccessful()) {
+//                    Toast.makeText(LeerDatosActivity.this, "Registro agregado", Toast.LENGTH_SHORT).show();
+//                    obtenerDatosDeInventario();
+//                } else {
+//                    // Log del error del servidor
+//                    Log.e("API_ERROR", "Código de error: " + response.code());
+//                    Log.e("API_ERROR", "Mensaje: " + response.message());
+//
+//                    // intentar leer el cuerpo del error
+//                    try {
+//                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "Cuerpo del error no disponible";
+//                        Log.e("API_ERROR", "Cuerpo de la respuesta: " + errorBody);
+//                    } catch (IOException e) {
+//                        Log.e("API_ERROR", "Error al leer el cuerpo del error: " + e.getMessage());
+//                    }
+//
+//                    Toast.makeText(LeerDatosActivity.this, "Error en el servidor: " + response.message(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<Inventario> call, @NonNull Throwable t) {
+//                Toast.makeText(LeerDatosActivity.this, "Error en la conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//                t.printStackTrace();
+//            }
+//        });
     }
 }

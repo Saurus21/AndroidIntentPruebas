@@ -14,14 +14,14 @@ import java.util.List;
 
 public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHolder> {
 
-    private List<ScannedData> scannedDataList;
+    private List<LecturaPendiente> lecturasPendientes;
 
-    public DatabaseAdapter(List<ScannedData> scannedDataList) {
-        this.scannedDataList = scannedDataList;
+    public DatabaseAdapter(List<LecturaPendiente> LecturaPendiente) {
+        this.lecturasPendientes = lecturasPendientes;
     }
 
-    public void actualizarDatos(List<ScannedData> nuevosDatos) {
-        this.scannedDataList = nuevosDatos;
+    public void actualizarDatos(List<LecturaPendiente> nuevosDatos) {
+        this.lecturasPendientes = nuevosDatos;
         notifyDataSetChanged();
     }
 
@@ -35,20 +35,20 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ScannedData data = scannedDataList.get(position);
-        
-        holder.tvSource.setText("Source: " + data.getSource());
-        holder.tvData.setText("Data: " + data.getData());
-        holder.tvLabelType.setText("Label Type: " + data.getLabelType());
-        holder.tvTimestamp.setText("Timestamp: " + data.getTimestamp());
-
-        String syncStatus = data.getSyncStatus() == 1 ? "Sincronizado" : "No sincronizado";
-        holder.tvSyncStatus.setText("Sync Status: " + syncStatus);
+//        ScannedData data = lecturasPendientes.get(position);
+//
+//        holder.tvSource.setText("Source: " + data.getSource());
+//        holder.tvData.setText("Data: " + data.getData());
+//        holder.tvLabelType.setText("Label Type: " + data.getLabelType());
+//        holder.tvTimestamp.setText("Timestamp: " + data.getTimestamp());
+//
+//        String syncStatus = data.getSyncStatus() == 1 ? "Sincronizado" : "No sincronizado";
+//        holder.tvSyncStatus.setText("Sync Status: " + syncStatus);
     }
 
     @Override
     public int getItemCount() {
-        return scannedDataList.size();
+        return lecturasPendientes.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

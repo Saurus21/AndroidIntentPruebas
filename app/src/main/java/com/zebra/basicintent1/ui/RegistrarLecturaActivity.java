@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.basicintent1.R;
 import com.zebra.basicintent1.database.AppDatabase;
-import com.zebra.basicintent1.modelosDatos.LecturaPendiente;
+import com.zebra.basicintent1.database.LecturaPendiente;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +22,7 @@ public class RegistrarLecturaActivity extends AppCompatActivity {
     private Button btnGuardarLectura;
     private int medidorId;         // recibido del intent
     private String serialMedidor;  // recibido del intent
+    private String idRuta;         // recibido del intent
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class RegistrarLecturaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registrar_lectura);
 
         // obtener los datos del intent
+        idRuta = getIntent().getStringExtra("id_ruta");
         medidorId = getIntent().getIntExtra("medidor_id", -1);
         serialMedidor = getIntent().getStringExtra("serial_medidor");
 
@@ -54,6 +56,7 @@ public class RegistrarLecturaActivity extends AppCompatActivity {
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         LecturaPendiente nuevaLectura = new LecturaPendiente(
+                idRuta,
                 medidorId,
                 serialMedidor,
                 valor,

@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zebra.basicintent1.R;
 import com.zebra.basicintent1.api.ApiClient;
-import com.zebra.basicintent1.api.InventarioApi;
+import com.zebra.basicintent1.api.AguaRuralApi;
 import com.zebra.basicintent1.modelosDatos.Ruta;
+import com.zebra.basicintent1.modelosDatos.RutaAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,42 +53,42 @@ public class RutasActivity extends AppCompatActivity implements RutaAdapter.OnRu
         setIntent(intent);
     }
 
-    private void cargarNotasVenta() {
+    private void cargarRutasAsignadas() {
         progressBar.setVisibility(View.VISIBLE);
 
         String estado = "A"; // cambiar estos datos para filtrar las notas por estado y fechas dto
         String fechaDesde = "2025-08-01";
         String fechaHasta = "2025-08-31";
 
-        AguaRuralApi apiService = ApiClient.getRetrofitInstance(this).create(AguaRuralApi.class);
-        Call<List<Ruta>> call = apiService.getRutasAsignadas("pensar que puede ir aqui");
-
-        call.enqueue(new Callback<List<Ruta>>() {
-            @Override
-            public void onResponse(Call<List<Ruta>> call, Response<List<Ruta>> response) {
-                progressBar.setVisibility(View.GONE);
-
-                if (response.isSuccessful() && response.body() != null) {
-                    listaRutas.clear();
-                    listaRutas.addAll(response.body());
-
-                    adapter.notifyDataSetChanged();
-
-                } else {
-                    Toast.makeText(RutasActivity.this,
-                            "No se encontraron notas de venta",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Ruta>> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(RutasActivity.this,
-                        "Error al cargar notas: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e("NotasVentaActivity", "Error al cargar notas: " + t.getMessage(), t);
-            }
-        });
+//        AguaRuralApi apiService = ApiClient.getRetrofitInstance(this).create(AguaRuralApi.class);
+//        Call<List<Ruta>> call = apiService.getRutasAsignadas("pensar que puede ir aqui");
+//
+//        call.enqueue(new Callback<List<Ruta>>() {
+//            @Override
+//            public void onResponse(Call<List<Ruta>> call, Response<List<Ruta>> response) {
+//                progressBar.setVisibility(View.GONE);
+//
+//                if (response.isSuccessful() && response.body() != null) {
+//                    listaRutas.clear();
+//                    listaRutas.addAll(response.body());
+//
+//                    adapter.notifyDataSetChanged();
+//
+//                } else {
+//                    Toast.makeText(RutasActivity.this,
+//                            "No se encontraron notas de venta",
+//                            Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Ruta>> call, Throwable t) {
+//                progressBar.setVisibility(View.GONE);
+//                Toast.makeText(RutasActivity.this,
+//                        "Error al cargar notas: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//                Log.e("NotasVentaActivity", "Error al cargar notas: " + t.getMessage(), t);
+//            }
+//        });
     }
 
     @Override
@@ -105,7 +105,7 @@ public class RutasActivity extends AppCompatActivity implements RutaAdapter.OnRu
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && data != null && data.getBooleanExtra("should_refresh", false)) {
-            cargarNotasVenta(); // Recargar las notas si es necesario
+            cargarRutasAsignadas(); // Recargar las notas si es necesario
         }
     }
 

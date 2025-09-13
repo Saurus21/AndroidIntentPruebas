@@ -8,58 +8,48 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.util.Log;
-import android.database.Cursor;
 
 import android.content.Context;
 
 @Database(
         entities = {
-                ScannedData.class,
-                ProductoEscaneadoPendiente.class
+                LecturaPendiente.class
         },
-        version = 6, // Versión actualizada
+        version = 8, // Versión actualizada
         exportSchema = true // Mantener para historial de migraciones
 )
 public abstract class AppDatabase extends RoomDatabase {
 
-    public abstract ScannedDataDao scannedDataDao();
-    public abstract ProductoEscaneadoDao productoEscaneadoDao();
+    public abstract LecturaPendienteDao lecturaPendienteDao();
 
     private static volatile AppDatabase INSTANCE;
 
     // Migraciones declaradas como static final
-    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    private static final Migration MIGRATION_6_7 = new Migration(6, 7) {
         @Override
-        public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE scanned_data ADD COLUMN timestamp TEXT");
-        }
-    };
-
-    private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-            // Añadir columna de sincronización con valor por defecto
-            database.execSQL(
-                    "ALTER TABLE scanned_data ADD COLUMN sync_status INTEGER NOT NULL DEFAULT 0"
-            );
-        }
-    };
-
-    // Nueva migración para la tabla de productos escaneados
-    private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            // eliminar tablas anteriores
+            database.execSQL("DROP TABLE IF EXISTS scanned_data");
             database.execSQL("DROP TABLE IF EXISTS productos_escaneados");
-            // Crear tabla para productos escaneados pendientes
+
+            // crear la nueva tabla
             database.execSQL(
-                    "CREATE TABLE IF NOT EXISTS productos_escaneados (" +
-                            "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                            "codigo TEXT NOT NULL, " +
-                            "nota_venta_id TEXT NOT NULL, " +
-                            "fecha_escaneo INTEGER NOT NULL, " +
-                            "procesado INTEGER NOT NULL DEFAULT 0, " +
-                            "intentos INTEGER NOT NULL DEFAULT 0)"
+                    "CREATE TABLE IF NOT EXISTS `lecturas_pendientes` (" +
+                            "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                            "`medidorId` INTEGER NOT NULL, " +
+                            "`serialMedidor` TEXT, " +
+                            "`valor` REAL NOT NULL, " +
+                            "`observacion` TEXT, " +
+                            "`timestamp` TEXT, " +
+                            "`sincronizado` INTEGER NOT NULL DEFAULT 0)"
             );
+        }
+    };
+
+    private static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE lecturas_pendientes ADD COLUMN idRuta TEXT");
         }
     };
 
@@ -70,31 +60,22 @@ public abstract class AppDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(
                                     context.getApplicationContext(),
                                     AppDatabase.class,
-                                    "scanned_app_database.db"
+                                    "recoleccion_agua.db"
                             )
                             .addMigrations(
-                                    MIGRATION_1_2,
-                                    MIGRATION_2_3,
-                                    MIGRATION_3_4
+                                    MIGRATION_6_7,
+                                    MIGRATION_7_8
                             )
+
                             // Descomentar solo para desarrollo/debug:
                             // .fallbackToDestructiveMigrationOnDowngrade()
+
                             .fallbackToDestructiveMigration()
                             .addCallback(new RoomDatabase.Callback() {
-                                @Override
-                                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                                    super.onCreate(db);
-                                    Log.d("DB_INIT", "Database created");
-                                }
-
                                 @Override
                                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                                     super.onOpen(db);
                                     Log.d("DB_INIT", "Database opened. Version: " + db.getVersion());
-                                    // Verifica que la tabla existe
-                                    Cursor cursor = db.query("SELECT name FROM sqlite_master WHERE type='table' AND name='productos_escaneados'");
-                                    Log.d("DB_INIT", "Tabla existe: " + (cursor.getCount() > 0));
-                                    cursor.close();
                                 }
                             })
                             .build();

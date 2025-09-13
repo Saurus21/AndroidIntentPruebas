@@ -22,7 +22,6 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import com.zebra.basicintent1.database.AppDatabase;
 import com.zebra.basicintent1.R;
-import com.zebra.basicintent1.database.ScannedData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -129,17 +128,17 @@ public class MainActivity extends AppCompatActivity {
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         // guardar los datos en la base de datos
-        new Thread(() -> {
-            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-            ScannedData scannedData = new ScannedData();
-
-            scannedData.setSource(decodedSource);
-            scannedData.setData(decodedData);
-            scannedData.setLabelType(decodedLabelType);
-            scannedData.setTimestamp(timestamp);
-
-            db.scannedDataDao().insert(scannedData);
-            Log.d("Database", "Data inserted: " + scannedData.getData());
-        }).start();
+//        new Thread(() -> {
+//            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+//            ScannedData scannedData = new ScannedData();
+//
+//            scannedData.setSource(decodedSource);
+//            scannedData.setData(decodedData);
+//            scannedData.setLabelType(decodedLabelType);
+//            scannedData.setTimestamp(timestamp);
+//
+//            db.scannedDataDao().insert(scannedData);
+//            Log.d("Database", "Data inserted: " + scannedData.getData());
+//        }).start();
     }
 }

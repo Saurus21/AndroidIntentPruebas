@@ -12,20 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.basicintent1.R;
 import com.zebra.basicintent1.api.ApiClient;
-import com.zebra.basicintent1.api.Inventario;
-import com.zebra.basicintent1.api.InventarioApi;
+import com.zebra.basicintent1.api.AguaRuralApi;
 import com.zebra.basicintent1.database.AppDatabase;
-import com.zebra.basicintent1.database.ScannedData;
-import com.zebra.basicintent1.modelosDatos.LecturaPendiente;
+import com.zebra.basicintent1.modelosDatos.Lectura;
+import com.zebra.basicintent1.database.LecturaPendiente;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import retrofit2.Call;
 import retrofit2.Response;
 
 public class SincronizarActivity extends AppCompatActivity {
@@ -33,7 +28,7 @@ public class SincronizarActivity extends AppCompatActivity {
     private static final String TAG = "SincronizarActivity";
     private ProgressBar progressBar;
     private AppDatabase db;
-    private InventarioApi inventarioApi;
+    private AguaRuralApi inventarioApi;
     private final Executor executor = Executors.newSingleThreadExecutor();
 
     private AguaRuralApi aguaRuralApi;
@@ -80,7 +75,6 @@ public class SincronizarActivity extends AppCompatActivity {
             try {
                 Lectura lecturaParaApi = new Lectura(
                         lecturaLocal.medidorId,
-                        lecturaLocal.serialMedidor,
                         lecturaLocal.valor,
                         lecturaLocal.observacion,
                         lecturaLocal.timestamp

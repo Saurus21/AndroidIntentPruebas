@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         android:enableOnBackInvokedCallback="true">
 
-        <activity android:name=".LoginActivity"
+        <activity android:name=".ui.DashboardActivity"
             android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
@@ -35,11 +35,11 @@
         <activity android:name=".ui.DatabaseActivity"/>
         <activity android:name=".ui.LeerDatosActivity"/>
         <activity android:name=".ui.SincronizarActivity"/>
-        <activity android:name=".ui.DashboardActivity"/>
+<!--        <activity android:name=".ui.DashboardActivity"/>    -->
         <activity android:name=".ui.RutasActivity"/>
-        <activity android:name=".ui.ProductosNotaVentaActivity"/>
+        <activity android:name=".ui.DetalleRutaActivity"/>
         <activity android:name=".ui.RegistrarLecturaActivity"/>
-        <!-- <activity android:name=".LoginActivity -->
+        <activity android:name=".LoginActivity"/>
 
     </application>
 

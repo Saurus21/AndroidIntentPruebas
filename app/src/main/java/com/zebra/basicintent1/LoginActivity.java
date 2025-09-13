@@ -11,13 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.zebra.basicintent1.api.ApiClient;
-import com.zebra.basicintent1.api.InventarioApi;
+import com.zebra.basicintent1.api.AguaRuralApi;
 import com.zebra.basicintent1.ui.DashboardActivity;
 import com.zebra.basicintent1.utils.CookieManager;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.Headers;
 import retrofit2.Call;
@@ -52,74 +50,74 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void authenticate(String username, String password) {
-        InventarioApi api = ApiClient.getRetrofitInstance(this).create(InventarioApi.class);
+        AguaRuralApi api = ApiClient.getRetrofitInstance(this).create(AguaRuralApi.class);
 
         // usar las credenciales ingresadas por el usuario
         ApiClient.setCredentials(username, password);
 
-        api.authenticate().enqueue(new Callback<>() {
-            @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.isSuccessful()) {
-
-                    // Obtener todas las cookies del encabezado "Set-Cookie"
-                    Headers headers = response.headers();
-                    List<String> cookies = headers.values("Set-Cookie");
-
-                    String xsrfToken = null;
-                    for (String cookie : cookies) {
-                        if (cookie.startsWith("XSRF-TOKEN")) {
-                            xsrfToken = cookie.split(";")[0].split("=")[1]; // valor despues de "XSRF-TOKEN="
-                            //Log.d("API_LOGIN", "Token CSRF encontrado: " + xsrfToken);
-                            break;
-                        }
-                    }
-
-                    String sessionCookie = null;
-                    for (String cookie : cookies) {
-                        if (cookie.startsWith("SESSION")) {
-                            sessionCookie = cookie.split(";")[0].split("=")[1]; // valor despues de "SESSION="
-                            break;
-                        }
-                    }
-
-                    CookieManager cookieManager = new CookieManager(LoginActivity.this);
-
-                    if (xsrfToken != null) {
-                        // guardar el token CSRF
-                        cookieManager.saveCookie("X-XSRF-TOKEN", xsrfToken);
-                        // cookieManager.saveCookie("XSRF-TOKEN", xsrfToken); // ESTAA
-
-                        // Log.d("API_LOGIN", "Token CSRF encontrado y guardado: " + xsrfToken);
-                    } else {
-                        Log.d("API_LOGIN", "No se encontró la cookie XSRF-TOKEN.");
-                    }
-
-                    if (sessionCookie != null) {
-                        // guardar la cookie de sesión
-
-                        // cookieManager.saveCookie("SESSION", sessionCookie); // ESTAA
-                        // Log.d("API_LOGIN", "Cookie de sesión encontrada y guardada: " + sessionCookie);
-                    }
-
-                    Log.d("API_LOGIN", "Autenticación exitosa");
-                    Log.d("LOG_COOKIES", "Cookies guardadas:");
-                    cookieManager.logCookies();
-
-                    // redirigir a DashboardActivity
-                    Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                    startActivity(intent);
-                    finish(); // cerrar LoginActivity para que no se pueda volver atrás
-                } else {
-                    Toast.makeText(LoginActivity.this, "Error en la autenticación", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                Toast.makeText(LoginActivity.this, "Error en la conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        api.authenticate().enqueue(new Callback<>() {
+//            @Override
+//            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+//                if (response.isSuccessful()) {
+//
+//                    // Obtener todas las cookies del encabezado "Set-Cookie"
+//                    Headers headers = response.headers();
+//                    List<String> cookies = headers.values("Set-Cookie");
+//
+//                    String xsrfToken = null;
+//                    for (String cookie : cookies) {
+//                        if (cookie.startsWith("XSRF-TOKEN")) {
+//                            xsrfToken = cookie.split(";")[0].split("=")[1]; // valor despues de "XSRF-TOKEN="
+//                            //Log.d("API_LOGIN", "Token CSRF encontrado: " + xsrfToken);
+//                            break;
+//                        }
+//                    }
+//
+//                    String sessionCookie = null;
+//                    for (String cookie : cookies) {
+//                        if (cookie.startsWith("SESSION")) {
+//                            sessionCookie = cookie.split(";")[0].split("=")[1]; // valor despues de "SESSION="
+//                            break;
+//                        }
+//                    }
+//
+//                    CookieManager cookieManager = new CookieManager(LoginActivity.this);
+//
+//                    if (xsrfToken != null) {
+//                        // guardar el token CSRF
+//                        cookieManager.saveCookie("X-XSRF-TOKEN", xsrfToken);
+//                        // cookieManager.saveCookie("XSRF-TOKEN", xsrfToken); // ESTAA
+//
+//                        // Log.d("API_LOGIN", "Token CSRF encontrado y guardado: " + xsrfToken);
+//                    } else {
+//                        Log.d("API_LOGIN", "No se encontró la cookie XSRF-TOKEN.");
+//                    }
+//
+//                    if (sessionCookie != null) {
+//                        // guardar la cookie de sesión
+//
+//                        // cookieManager.saveCookie("SESSION", sessionCookie); // ESTAA
+//                        // Log.d("API_LOGIN", "Cookie de sesión encontrada y guardada: " + sessionCookie);
+//                    }
+//
+//                    Log.d("API_LOGIN", "Autenticación exitosa");
+//                    Log.d("LOG_COOKIES", "Cookies guardadas:");
+//                    cookieManager.logCookies();
+//
+//                    // redirigir a DashboardActivity
+//                    Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+//                    startActivity(intent);
+//                    finish(); // cerrar LoginActivity para que no se pueda volver atrás
+//                } else {
+//                    Toast.makeText(LoginActivity.this, "Error en la autenticación", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+//                Toast.makeText(LoginActivity.this, "Error en la conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
     }
