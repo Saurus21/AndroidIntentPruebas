@@ -82,7 +82,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         // boton para el picking list
         View pickingListButton = findViewById(R.id.btnPickingList);
-        ((TextView) pickingListButton.findViewById(R.id.dashboardButtonText)).setText("Picking List");
+        ((TextView) pickingListButton.findViewById(R.id.dashboardButtonText)).setText("Empezar Registro");
         ((ImageView) pickingListButton.findViewById(R.id.dashboardButtonIcon)).setImageResource(R.drawable.ic_picking_list);
 
         pickingListButton.setOnClickListener(v -> {

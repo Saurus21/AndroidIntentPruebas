@@ -1,19 +1,45 @@
-# BasicIntent1
+# App Móvil: Recolección de Datos Rurales
+Este repositorio contiene el código fuente de la aplicación móvil Android para la Plataforma de Recolección de Datos de Medidores de Agua en Zonas Rurales.
 
-*This application is intended for demonstration purposes only. It is provided as-is without guarantee or warranty and may be modified to suit individual needs.*
-=========================================================
+Esta aplicación es la herramienta de trabajo para los técnicos en terreno. Su objetivo principal es permitir el registro de lecturas de medidores de agua en entornos con conectividad a internet limitada o nula.
 
-![Image of BasicIntent1 sample](./basicintent1-1.png)
+## Características Principales
+Autenticación Segura: Login de usuario (técnico) contra la API central.
 
-This sample demonstrates how to use DataWedge to receive scanned barcode data through an Android intent.
+Modo Offline (Offline-First): La característica más importante de la app.
 
-Available actions in this sample:
+Las lecturas se guardan primero en una base de datos local (Room) en el dispositivo.
 
-* Display the following for each decoded barcode: 
-     * scan source
-     * scan data
-     * decoder type
+Esto permite a la app funcionar al 100% sin conexión a internet.
 
-Refer to Zebra TechDocs: http://techdocs.zebra.com/datawedge/latest/guide/samples/basicintent1/
+Registro de Lecturas: Formulario para ingresar el valor numérico de la lectura, ID del medidor y observaciones.
 
+Sincronización de Datos: Una pantalla dedicada permite al técnico enviar todas las lecturas pendientes (guardadas localmente) al servidor central cuando recupera la conexión a internet.
 
+Base de Datos Local: Gestión de la base de datos Room para almacenar LecturasPendientes.
+
+## Tecnologías Utilizadas
+Lenguaje: Java
+
+Arquitectura: Android Nativo
+
+Base de Datos Local: Room
+
+Networking (API): Retrofit
+
+Manejo de JSON: Gson
+
+Componentes UI: AndroidX, RecyclerView, Material Components.
+
+## Puesta en Marcha
+Clona este repositorio.
+
+Abre el proyecto con Android Studio.
+
+Configura la URL de la API (Modifica la variable BASE_URL dentro del archivo ApiClient.java).
+
+### app/src/main/java/com/zebra/basicintent1/api/ApiClient.java
+
+Sincroniza el proyecto con Gradle.
+
+Ejecuta la aplicación en un emulador o un dispositivo físico.

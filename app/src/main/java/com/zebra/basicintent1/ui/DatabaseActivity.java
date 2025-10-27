@@ -21,32 +21,32 @@ import java.util.ArrayList;
 
 public class DatabaseActivity extends AppCompatActivity {
 
-//    private RecyclerView recyclerView;
-//    private ProgressBar progressBar;
-//    private DatabaseAdapter adapter;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_database);
-//
-//        recyclerView = findViewById(R.id.recyclerViewDatabase);
-//        progressBar = findViewById(R.id.progressBar);
-//
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        adapter = new DatabaseAdapter(new ArrayList<>());
-//        recyclerView.setAdapter(adapter);
-//
-//        progressBar.setVisibility(View.VISIBLE);
-//
-//        // Cargar datos desde la base de datos
-//        cargarDatosDesdeBaseDeDatos();
-//
-//        // Configurar el botón para agregar datos
-//        Button btnAgregarDatos = findViewById(R.id.btnAgregarDatos);
-//        btnAgregarDatos.setOnClickListener(v -> mostrarDialogoAgregarInventario());
-//    }
-//
+    private RecyclerView recyclerView;
+    private ProgressBar progressBar;
+    private DatabaseAdapter adapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_database);
+
+        recyclerView = findViewById(R.id.recyclerViewDatabase);
+        progressBar = findViewById(R.id.progressBar);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new DatabaseAdapter(new ArrayList<>());
+        recyclerView.setAdapter(adapter);
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        // Cargar datos desde la base de datos
+        // cargarDatosDesdeBaseDeDatos();
+
+        // Configurar el botón para agregar datos
+        Button btnAgregarDatos = findViewById(R.id.btnAgregarDatos);
+        // btnAgregarDatos.setOnClickListener(v -> mostrarDialogoAgregarInventario());
+    }
+
 //    private void cargarDatosDesdeBaseDeDatos() {
 //        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
 //        db.scannedDataDao().getAllScannedData().observe(this, scannedDataList -> {
